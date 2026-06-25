@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kairav Dutta · portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #12121a;
+      --bg3: #1a1a2e;
+      --accent: #6c5ce7;
+      --accent2: #00cec9;
+      --accent3: #fd79a8;
+      --text: #e0e0e0;
+      --text2: #8888aa;
+      --text3: #555577;
+      --grad: linear-gradient(135deg, #6c5ce7, #00cec9);
+      --grad2: linear-gradient(135deg, #fd79a8, #6c5ce7);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* Particle canvas */
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(108,92,231,0.15);
+    }
+    nav .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.25rem;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    nav .links { display: flex; gap: 2rem; align-items: center; }
+    nav .links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+    nav .links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--grad);
+      transition: width 0.3s;
+    }
+    nav .links a:hover { color: var(--text); }
+    nav .links a:hover::after { width: 100%; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 24px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Sections */
+    section {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 6rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Hero */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+      padding-top: 8rem;
+    }
+    #hero .greeting {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+    }
+    #hero h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    #hero h1 .highlight {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    #hero .subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text2);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+    #hero .cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--grad);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(108,92,231,0.35);
+    }
+    .btn-outline {
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      background: rgba(108,92,231,0.1);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-stats .stat .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-stats .stat .label {
+      font-size: 0.8rem;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .about-grid .left p {
+      color: var(--text2);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .about-grid .left p strong { color: var(--text); }
+    .about-grid .right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .info-card {
+      background: var(--bg2);
+      border: 1px solid rgba(108,92,231,0.1);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: all 0.3s;
+    }
+    .info-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(108,92,231,0.1);
+    }
+    .info-card .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .info-card h4 { font-size: 0.8rem; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+    .info-card p { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+    .info-card.full { grid-column: 1 / -1; }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .skill-cat {
+      background: var(--bg2);
+      border: 1px solid rgba(108,92,231,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .skill-cat:hover {
+      border-color: rgba(108,92,231,0.3);
+      box-shadow: 0 8px 25px rgba(108,92,231,0.08);
+    }
+    .skill-cat h3 {
+      font-size: 0.9rem;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .skill-tag {
+      background: rgba(108,92,231,0.1);
+      border: 1px solid rgba(108,92,231,0.2);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .skill-tag:hover {
+      background: rgba(108,92,231,0.25);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Projects */
+    .project-filters {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--bg3);
+      background: var(--bg2);
+      color: var(--text2);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--accent);
+      background: rgba(108,92,231,0.15);
+      color: var(--text);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid rgba(108,92,231,0.08);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      right: 0; height: 3px;
+      background: var(--grad);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(108,92,231,0.25);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .project-card .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .project-card .top .folder { font-size: 1.5rem; }
+    .project-card .top .links { display: flex; gap: 0.75rem; }
+    .project-card .top .links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    .project-card .top .links a:hover { color: var(--accent); }
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .project-card .desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .project-card .techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .project-card .techs span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text3);
+      background: var(--bg3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+    .project-card.hidden { display: none; }
+
+    /* Experience */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-left: 2rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -0.4rem; top: 0.25rem;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--grad);
+      border: 2px solid var(--bg);
+    }
+    .timeline-item .date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-item h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .timeline-item .org {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-item p {
+      color: var(--text2);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    /* Passions */
+    .passions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .passion-card {
+      background: var(--bg2);
+      border: 1px solid rgba(108,92,231,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.4s;
+    }
+    .passion-card:hover {
+      border-color: rgba(108,92,231,0.3);
+      transform: translateY(-4px);
+    }
+    .passion-card .emoji {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .passion-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .passion-card p {
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* Contact */
+    #contact {
+      min-height: auto;
+      padding-bottom: 4rem;
+      text-align: center;
+    }
+    #contact .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid rgba(108,92,231,0.1);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
+      min-width: 200px;
+    }
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(108,92,231,0.1);
+    }
+    .contact-card .cicon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .contact-card .clabel { font-size: 0.8rem; color: var(--text2); }
+    .contact-card .cval { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; margin-top: 0.25rem; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      color: var(--text3);
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(108,92,231,0.08);
+    }
+    footer .heart { color: var(--accent3); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav .links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.95); padding: 1.5rem; gap: 1.25rem; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(108,92,231,0.15); }
+      nav .links.open { display: flex; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-grid .right { grid-template-columns: 1fr 1fr; }
+      #hero h1 { font-size: 2.5rem; }
+      section { padding: 5rem 1.25rem 3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .about-grid .right { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <nav>
+    <div class="logo">Kairav.dev</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#passions">Passions</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="greeting">&gt; Hello, world!</div>
+    <h1>I'm <span class="highlight">Kairav Dutta</span></h1>
+    <div class="subtitle">
+      BTech CSE at IIIT Delhi &middot; 18 yo builder who absolutely loves doing projects, writes low-level C/C++, loves python, ships React apps,
+      experiments with OpenGL, and occasionally vibecodes dev tools that he thinks are needed.
+    </div>
+    <div class="cta">
+      <a href="#projects" class="btn btn-primary">See my work</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">24+</div><div class="label">Projects</div></div>
+      <div class="stat"><div class="num">8</div><div class="label">Languages</div></div>
+      <div class="stat"><div class="num">18</div><div class="label">Years old</div></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-tag">01. About</div>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid">
+      <div class="left">
+        <p>
+          I'm an 18-year-old CS undergrad at <strong>IIIT Delhi (Batch '29)</strong> who loves
+          building things that actually work. I'm equally comfortable writing a
+          <strong>rule engine in C</strong> with a bytecode VM and spinning up a
+          <strong>React + Django</strong> full-stack app.
+        </p>
+        <p>
+          My journey started with competitive programming (Codeforces CP31) and quickly
+          spiralled into systems programming, game dev with OpenGL/SDL2, language design,
+          AI/ML, and even publishing <strong>VS Code extensions</strong> used by real people.
+        </p>
+        <p>
+          Scored <strong>97.4% in CBSE Class 12</strong> (Centum in Math) and
+          <strong>97.6% in Class 10</strong>. SOMEHOW managed to get <strong>AIR 5217 in JEE Advanced </strong> Currently a software developer at 
+          <strong>Byld IIIT</strong> and Operations member at <strong>LDA IIITD, IEEE and Cultural Council</strong>.
+        </p>
+      </div>
+      <div class="right">
+        <div class="info-card"><div class="icon">🎓</div><h4>College</h4><p>IIIT Delhi (CSE)</p></div>
+        <div class="info-card"><div class="icon">📍</div><h4>Location</h4><p>Delhi, India</p></div>
+        <div class="info-card"><div class="icon">📧</div><h4>Email</h4><p>kairavdutta@gmail.com</p></div>
+        <div class="info-card"><div class="icon">🏆</div><h4>Class 12</h4><p>97.4% · Centum in Math</p></div>
+        <div class="info-card full"><div class="icon">📜</div><h4>Schooling</h4><p>Delhi Private School, Dubai · PD Model School</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="section-tag">02. Skills</div>
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3>Languages</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">C (C11/C23)</span>
+          <span class="skill-tag">C++ (C++17/20)</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java (excluding frameworks)</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">Assembly x86-64 (basic)</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Frontend & UI</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">React 18/19</span>
+          <span class="skill-tag">Vite</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">JavaFX (basic)</span>
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">ImGui</span>
+          <span class="skill-tag">EzUI</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Backend & DB</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI (known the best)</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">Django REST</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">SQLite</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Systems & Graphics</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">OpenGL</span>
+          <span class="skill-tag">GLFW</span>
+          <span class="skill-tag">SDL2</span>
+          <span class="skill-tag">Qt 5/6</span>
+          <span class="skill-tag">Linux Sockets</span>
+          <span class="skill-tag">ASIO</span>
+          <span class="skill-tag">CMake/Make</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>AI / ML</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">MediaPipe</span>
+          <span class="skill-tag">OpenCV</span>
+          <span class="skill-tag">scikit-learn</span>
+          <span class="skill-tag">NumPy/Pandas</span>
+          <span class="skill-tag">OR-Tools</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Tools & Platforms</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">VS Code Extensions</span>
+          <span class="skill-tag">Git/GitHub</span>
+          <span class="skill-tag">pybind11</span>
+          <span class="skill-tag">vcpkg</span>
+          <span class="skill-tag">Maven</span>
+          <span class="skill-tag">Pygame</span>
+          <span class="skill-tag">pyproject.toml</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-tag">03. Projects</div>
+    <h2 class="section-title">Things I've Built</h2>
+
+    <div class="project-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="systems">Systems</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn" data-filter="games">Games</button>
+      <button class="filter-btn" data-filter="ml">AI/ML</button>
+      <button class="filter-btn" data-filter="tools">Tools</button>
+      <button class="filter-btn" data-filter="lang">Languages</button>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      <div class="project-card" data-cat="systems">
+        <div class="top"><span class="folder">⚙️</span><div class="links"><a href="https://github.com/ka1rav6/vela" target="_blank">↗</a></div></div>
+        <h3>Vela</h3>
+        <div class="desc">Rule engine in C — parses JSON rules into bytecode, evaluates via stack-machine VM. Arena allocator, bitmask facts, semantic checker.</div>
+        <div class="techs"><span>C</span><span>yyjson</span><span>bytecode VM</span></div>
+      </div>
+
+      <div class="project-card" data-cat="tools">
+        <div class="top"><span class="folder">📦</span><div class="links"><a href="https://github.com/ka1rav6/lazycmake" target="_blank">↗</a></div></div>
+        <h3>LazyCMake</h3>
+        <div class="desc">[ VIBECODED ] TUI tool (lazygit-inspired) for creating, configuring & building CMake C/C++ projects — no hand-writing CMakeLists.txt.</div>
+        <div class="techs"><span>C++20</span><span>FTXUI</span><span>CMake</span></div>
+      </div>
+
+      <div class="project-card" data-cat="lang">
+        <div class="top"><span class="folder">🔤</span><div class="links"><a href="https://github.com/ka1rav6/K" target="_blank">↗</a></div></div>
+        <h3>K Language</h3>
+        <div class="desc">Custom programming language that transpiles to C++. Cleaner syntax, better error messages, low-level control. Lexer → Parser → Transpiler.</div>
+        <div class="techs"><span>Python</span><span>C++</span></div>
+      </div>
+
+      <div class="project-card" data-cat="tools">
+        <div class="top"><span class="folder">🔧</span><div class="links"><a href="https://github.com/ka1rav6/variable-case-converter" target="_blank">↗</a></div></div>
+        <h3>Variable Case Converter</h3>
+        <div class="desc">[ VIBECODED ] VS Code extension — converts between camelCase, PascalCase, snake_case, kebab-case. 12+ languages. Published on marketplace.</div>
+        <div class="techs"><span>TypeScript</span><span>VS Code API</span></div>
+      </div>
+
+      <div class="project-card" data-cat="tools">
+        <div class="top"><span class="folder">📄</span><div class="links"><a href="https://github.com/ka1rav6/header-file-generator" target="_blank">↗</a></div></div>
+        <h3>Header File Generator</h3>
+        <div class="desc">[ VIBECODED ] VS Code extension — auto-generates C/C++ header files from source. Extracts prototypes, classes, structs, enums. Marketplace.</div>
+        <div class="techs"><span>TypeScript</span><span>VS Code API</span></div>
+      </div>
+
+      <div class="project-card" data-cat="web">
+        <div class="top"><span class="folder">📚</span><div class="links"><a href="https://github.com/ka1rav6/college-website-mvp" target="_blank">↗</a></div></div>
+        <h3>College LMS</h3>
+        <div class="desc">Google Classroom MVP — role-based (Teacher/TA/Student), 25+ API endpoints, file upload, responsive UI. DRF + React + Tailwind.</div>
+        <div class="techs"><span>Django</span><span>React</span><span>PostgreSQL</span></div>
+      </div>
+
+      <div class="project-card" data-cat="systems">
+        <div class="top"><span class="folder">🖥️</span><div class="links"><a href="https://github.com/ka1rav6/http-server-cpp" target="_blank">↗</a></div></div>
+        <h3>HTTP Server</h3>
+        <div class="desc">HTTP/1.1 server from scratch using Linux sockets. No external HTTP libraries — raw TCP/IP, request parsing, static file serving.</div>
+        <div class="techs"><span>C++</span><span>Linux Sockets</span></div>
+      </div>
+
+      <div class="project-card" data-cat="systems">
+        <div class="top"><span class="folder">📟</span><div class="links"><a href="https://github.com/ka1rav6/text-editor" target="_blank">↗</a></div></div>
+        <h3>Textmex</h3>
+        <div class="desc">Vim-like terminal text editor (v0.1.1). Gap buffer, raw terminal I/O, cursor movement, file saving. Minimal and fast.</div>
+        <div class="techs"><span>C++</span><span>Terminal I/O</span></div>
+      </div>
+
+      <div class="project-card" data-cat="systems">
+        <div class="top"><span class="folder">📊</span><div class="links"><a href="https://github.com/ka1rav6/efficient-data-engine" target="_blank">↗</a></div></div>
+        <h3>Efficient Data Engine</h3>
+        <div class="desc">C++ data processing core + Python CLI + Tkinter GUI. Matrix ops, stats, sorting, CSV. Uses pybind11 for the bridge.</div>
+        <div class="techs"><span>C++</span><span>Python</span><span>pybind11</span></div>
+      </div>
+
+      <div class="project-card" data-cat="games">
+        <div class="top"><span class="folder">🎮</span><div class="links"><a href="https://github.com/ka1rav6/tetris" target="_blank">↗</a></div></div>
+        <h3>Tetris</h3>
+        <div class="desc">Fully playable Tetris in C++/SDL2. Piece movement/rotation, collision detection, line clearing, modular OOP.</div>
+        <div class="techs"><span>C++</span><span>SDL2</span><span>CMake</span></div>
+      </div>
+
+      <div class="project-card" data-cat="games">
+        <div class="top"><span class="folder">🎮</span><div class="links"><a href="https://github.com/ka1rav6/ctf-game" target="_blank">↗</a></div></div>
+        <h3>CTF Game [ IN PROGRESS ]</h3>
+        <div class="desc">3D Capture-The-Flag game. OpenGL rendering, GLFW, Assimp model loading, ReactPhysics3D physics, ImGui debug UI.</div>
+        <div class="techs"><span>C++20</span><span>OpenGL</span><span>Physics</span></div>
+      </div>
+
+      <div class="project-card" data-cat="games">
+        <div class="top"><span class="folder">🎮</span><div class="links"><a href="https://github.com/ka1rav6/doodle-jump" target="_blank">↗</a></div></div>
+        <h3>Doodle Jump</h3>
+        <div class="desc">Doodle Jump clone in Python/Pygame. Modular OOP, procedural platform generation, clean architecture.</div>
+        <div class="techs"><span>Python</span><span>Pygame</span></div>
+      </div>
+
+      <div class="project-card" data-cat="games">
+        <div class="top"><span class="folder">✋</span><div class="links"><a href="https://github.com/ka1rav6/hand-gesture-recognition" target="_blank">↗</a></div></div>
+        <h3>Gesture Recognition Game</h3>
+        <div class="desc">Hand gesture recognition AI for a game. MediaPipe + OpenCV + PyTorch. GPU-accelerated with CUDA.</div>
+        <div class="techs"><span>Python</span><span>MediaPipe</span><span>PyTorch</span></div>
+      </div>
+
+      <div class="project-card" data-cat="web">
+        <div class="top"><span class="folder">☁️</span><div class="links"><a href="https://github.com/ka1rav6/orbix_migraine" target="_blank">↗</a></div></div>
+        <h3>Orbix Migraine</h3>
+        <div class="desc">AI migraine predictor — sleep, hydration, stress, screen time inputs. Probabilistic model with adaptive learning. FastAPI + ML.</div>
+        <div class="techs"><span>Python</span><span>FastAPI</span><span>scikit-learn</span></div>
+      </div>
+
+      <div class="project-card" data-cat="ml">
+        <div class="top"><span class="folder">🧠</span><div class="links"><a href="https://github.com/ka1rav6/studentBurnoutRiskPredictor" target="_blank">↗</a></div></div>
+        <h3>Burnout Risk Predictor</h3>
+        <div class="desc">ML web app predicting student burnout/dropout risk from academic & psychological data. Random forest, Streamlit, SQLite.</div>
+        <div class="techs"><span>Python</span><span>scikit-learn</span><span>Streamlit</span></div>
+      </div>
+
+      <div class="project-card" data-cat="sim">
+        <div class="top"><span class="folder">🌍</span><div class="links"><a href="https://github.com/ka1rav6/pykworldsim" target="_blank">↗</a></div></div>
+        <h3>pykworldsim</h3>
+        <div class="desc">[ Vibecoded ] Production-grade ECS world simulation framework. People, cities, relationships, jobs, goals, events. Deterministic RNG, snapshot/replay.</div>
+        <div class="techs"><span>Python</span><span>ECS</span><span>PyPI</span></div>
+      </div>
+
+      <div class="project-card" data-cat="web">
+        <div class="top"><span class="folder">🛒</span><div class="links"><a href="https://github.com/ka1rav6/amazon-recreation" target="_blank">↗</a></div></div>
+        <h3>Amazon Recreation</h3>
+        <div class="desc">Amazon front-end clone built with React to practice component architecture and styling at scale.</div>
+        <div class="techs"><span>React</span><span>CSS</span></div>
+      </div>
+
+      <div class="project-card" data-cat="tools">
+        <div class="top"><span class="folder">🎨</span><div class="links"><a href="https://github.com/ka1rav6/ezui" target="_blank">↗</a></div></div>
+        <h3>EzUI</h3>
+        <div class="desc">Minimal reactive C++ GUI library wrapping SDL2. Declarative API, reactive state, HStack/VStack, no event-loop boilerplate.</div>
+        <div class="techs"><span>C++20</span><span>SDL2</span></div>
+      </div>
+
+     <div class="project-card" data-cat="systems">
+        <div class="top"><span class="folder">♟️</span><div class="links"><a href="https://github.com/ka1rav6/chess_engine" target="_blank">↗</a></div></div>
+        <h3>Chess Engine</h3>
+        <div class="desc">C chess engine with board/piece abstractions, move parsing, game state management, and debug logger.</div>
+        <div class="techs"><span>C11</span><span>CMake</span></div>
+      </div>
+
+      <div class="project-card" data-cat="web">
+        <div class="top"><span class="folder">🔀</span><div class="links"><a href="https://github.com/ka1rav6/ROTA-gen" target="_blank">↗</a></div></div>
+        <h3>ROTA Gen</h3>
+        <div class="desc">Employee shift scheduler using constraint programming (OR-Tools CP-SAT). Generates Excel with color-coded shifts.</div>
+        <div class="techs"><span>Python</span><span>OR-Tools</span><span>openpyxl</span></div>
+      </div>
+
+      <div class="project-card" data-cat="ml">
+        <div class="top"><span class="folder">🤖</span><div class="links"><a href="https://github.com/ka1rav6/CP" target="_blank">↗</a></div></div>
+        <h3>Competitive Programming</h3>
+        <div class="desc">Codeforces CP31 problem solutions across C, C++, Python. Active problem-solving practice.</div>
+        <div class="techs"><span>C</span><span>C++</span><span>Python</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="section-tag">04. Experience</div>
+    <h2 class="section-title">Where I've Been</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="date">May 2026 — Present</div>
+        <h3>Dev Team Member</h3>
+        <div class="org">Byld - IIITD</div>
+        <p>Working on design and product development at a student-run organisation building tech products at IIITD.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="date">Sep 2025 — Present</div>
+        <h3>Operations Team Member</h3>
+        <div class="org">LDA IIITD / Cultural Council / IEEE</div>
+        <p>Managing operations and logistics for the Literary & Dramatics Association at IIIT Delhi.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="date">Jul 2025 — Present</div>
+        <h3>BTech Computer Science</h3>
+        <div class="org">IIIT Delhi</div>
+        <p>Bachelor's in Computer Science & Engineering. Expected 2029.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Passions -->
+  <section id="passions">
+    <div class="section-tag">05. Beyond Code</div>
+    <h2 class="section-title">Other Passions</h2>
+    <div class="passions-grid">
+      <div class="passion-card">
+        <div class="emoji">♟️</div>
+        <h4>Chess</h4>
+        <p>School chess society member. Love the strategy and depth of the game.</p>
+      </div>
+      <div class="passion-card">
+        <div class="emoji">🎭</div>
+        <h4>Reading Books</h4>
+        <p>Love to read and view the world from different perspectives.</p>
+      </div>
+      <div class="passion-card">
+        <div class="emoji">🎮</div>
+        <h4>Game Dev</h4>
+        <p>Building games in C++/SDL2, OpenGL, and Python/Pygame. Both 2D and 3D.</p>
+      </div>
+      <div class="passion-card">
+        <div class="emoji">🔧</div>
+        <h4>Systems Programming</h4>
+        <p>Low-level C/C++, VMs, compilers, language design, and OS-level stuff.</p>
+      </div>
+      <div class="passion-card">
+        <div class="emoji">🧠</div>
+        <h4>AI / ML</h4>
+        <p>PyTorch, MediaPipe, scikit-learn — ML for real-world problems.</p>
+      </div>
+      <div class="passion-card">
+        <div class="emoji">🌍</div>
+        <h4>Open Source</h4>
+        <p>Published VS Code extensions, PyPI packages, and contributing to the dev community.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-tag">06. Contact</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <p style="color: var(--text2); margin-bottom: 1rem; font-size: 1.05rem;">
+      Whether it's a project idea, collab, or just to say hi — I'm always down to talk.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:kairavdutta@gmail.com" class="contact-card">
+        <div class="cicon">📧</div>
+        <div class="clabel">Email</div>
+        <div class="cval">kairavdutta@gmail.com</div>
+      </a>
+      <a href="https://github.com/ka1rav6" target="_blank" class="contact-card">
+        <div class="cicon">🐙</div>
+        <div class="clabel">GitHub</div>
+        <div class="cval">@ka1rav6</div>
+      </a>
+      <a href="https://www.linkedin.com/in/kairavdutta" target="_blank" class="contact-card">
+        <div class="cicon">💼</div>
+        <div class="clabel">LinkedIn</div>
+        <div class="cval">/in/kairavdutta</div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Built with <span class="heart">♥</span> by Kairav Dutta &middot; IIITD '29
+  </footer>
+
+  <script>
+    // ── Particle Background ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        // Mouse interaction
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 120) {
+            this.x -= dx * 0.005;
+            this.y -= dy * 0.005;
+          }
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(108, 92, 231, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    const particleCount = Math.min(100, Math.floor(canvas.width * canvas.height / 10000));
+    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+    let mouseMoved = false;
+    let mouseTimeout;
+    window.addEventListener('mousemove', () => {
+      mouseMoved = true;
+      clearTimeout(mouseTimeout);
+      mouseTimeout = setTimeout(() => { mouseMoved = false; }, 100);
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        p.update();
+        p.draw();
+      }
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(108, 92, 231, ${0.1 * (1 - dist/150)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // ── Project Filtering ──
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        projectCards.forEach(card => {
+          if (filter === 'all' || card.dataset.cat === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // ── Hamburger Menu ──
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ── Smooth scroll offset for fixed nav ──
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
